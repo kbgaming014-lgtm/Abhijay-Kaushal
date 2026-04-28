@@ -1,4 +1,5 @@
 cap gemeni Projects
+
 A collection of beginner‑friendly Python projects demonstrating menu‑driven systems, file handling, randomization, and user interaction.
 These projects are designed for learning, practice, and showcasing on GitHub.
 ---
