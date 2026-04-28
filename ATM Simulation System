@@ -1,0 +1,62 @@
+import datetime
+
+FILENAME = "transactions.txt"
+balance = 0.0
+
+def display_balance():
+    print(f"\nCurrent Balance: ₹{balance:.2f}")
+
+def deposit_money(amount):
+    global balance
+    balance += amount
+    record_transaction(f"Deposited ₹{amount:.2f}")
+    print(f"₹{amount:.2f} deposited successfully!")
+
+def withdraw_money(amount):
+    global balance
+    if amount <= balance:
+        balance -= amount
+        record_transaction(f"Withdrew ₹{amount:.2f}")
+        print(f"₹{amount:.2f} withdrawn successfully!")
+    else:
+        print("Insufficient funds!")
+
+def show_statement():
+    try:
+        with open(FILENAME, "r") as file:
+            print("\n--- Transaction History ---")
+            print(file.read())
+    except FileNotFoundError:
+        print("No transactions found.")
+
+def record_transaction(entry):
+    with open(FILENAME, "a") as file:
+        file.write(f"{entry} - {datetime.datetime.now()}\n")
+
+def menu():
+    print("\n--- ATM Simulation ---")
+    print("1. Display Balance")
+    print("2. Deposit Money")
+    print("3. Withdraw Money")
+    print("4. Statement")
+    print("5. Exit")
+
+if __name__ == "__main__":
+    while True:   # Infinite loop for menu-driven system
+        menu()
+        choice = input("Enter choice: ")
+        if choice == "1":
+            display_balance()
+        elif choice == "2":
+            amt = float(input("Enter amount to deposit: "))
+            deposit_money(amt)
+        elif choice == "3":
+            amt = float(input("Enter amount to withdraw: "))
+            withdraw_money(amt)
+        elif choice == "4":
+            show_statement()
+        elif choice == "5":
+            print("Exiting system... Goodbye!")
+            break
+        else:
+            print("Invalid choice, try again.")
